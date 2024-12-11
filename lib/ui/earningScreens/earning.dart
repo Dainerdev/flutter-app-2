@@ -1,5 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_und4/ui/earningScreens/earning.add.dart';
+import 'package:flutter_app_und4/ui/earningScreens/earning.search.dart';
 import 'package:flutter_app_und4/ui/homeScreens/home.dart';
+
+class Earning {
+  final int id;
+  final String name;
+  final double amount;
+  final String description;
+
+  Earning({
+    required this.id,
+    required this.name,
+    required this.amount,
+    required this.description
+  });
+}
 
 class EarningScreen extends StatelessWidget {
   const EarningScreen({super.key});
@@ -34,7 +50,11 @@ class EarningScreen extends StatelessWidget {
             Column(
               children: [
                 ElevatedButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AddEarningScreen())
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 141, 74, 180),
                     padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
@@ -54,7 +74,11 @@ class EarningScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.push(context, 
+                      MaterialPageRoute(builder: (context) => SearchEarningScreen())
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 141, 74, 180),
                     padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
@@ -84,7 +108,7 @@ class EarningScreen extends StatelessWidget {
                     )
                   ),
                   child: const Text(
-                    'Listar',
+                    'Ver Ingresos',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
