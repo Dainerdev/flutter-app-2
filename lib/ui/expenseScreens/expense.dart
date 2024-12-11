@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_und4/ui/expenseScreens/expense.add.dart';
 import 'package:flutter_app_und4/ui/homeScreens/home.dart';
 
 class ExpensesScreen extends StatelessWidget {
@@ -39,7 +40,9 @@ class ExpensesScreen extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: (){
-
+                    Navigator.push(context, 
+                      MaterialPageRoute(builder: (context) => AddExpenseScreen())
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 141, 74, 180),
