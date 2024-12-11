@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_und4/models/expense.model.dart';
 import 'package:flutter_app_und4/ui/expenseScreens/expense.dart';
+import 'package:flutter_app_und4/ui/login.dart';
 
 class SearchExpenseScreen extends StatefulWidget {
   const SearchExpenseScreen({super.key});
@@ -13,6 +15,28 @@ class _SearchEarningScreenState extends State<SearchExpenseScreen> {
   
   // identificadores
   final nameField = TextEditingController();
+
+  // Lista de ingresos
+  List<Expense> earnings = [];
+  String? userId;
+  Map<String, dynamic>? userData;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserId();
+  } 
+
+  // Método para cargar el userId desde SharedPreferences
+  Future<void> _loadUserId() async {
+    // Obtiene el ID del usuario desde SharedPreferences
+    final id = await getUserId();
+
+    // Actualiza el estado con el ID
+    setState(() {
+      userId = id;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
