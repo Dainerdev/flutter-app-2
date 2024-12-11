@@ -11,6 +11,15 @@ class AddExpenseScreen extends StatefulWidget {
 
 class _AddEarningScreenState extends State<AddExpenseScreen> {
 
+  // Identificadores de los textfields
+  final nameField = TextEditingController();
+  final amountField = TextEditingController();
+  final descriptionField = TextEditingController();
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +41,7 @@ class _AddEarningScreenState extends State<AddExpenseScreen> {
               const SizedBox(height: 50),
 
               TextField(
+                controller: nameField,
                 decoration: const InputDecoration(
                   labelText: 'Nombre',
                   border: OutlineInputBorder()
@@ -41,6 +51,7 @@ class _AddEarningScreenState extends State<AddExpenseScreen> {
               const SizedBox(height: 20),
 
               TextField(
+                controller: amountField,
                 decoration: const InputDecoration(
                   labelText: 'Monto',
                   border: OutlineInputBorder()
@@ -50,6 +61,7 @@ class _AddEarningScreenState extends State<AddExpenseScreen> {
               const SizedBox(height: 20),
 
               TextField(
+                controller: descriptionField,
                 decoration: const InputDecoration(
                   labelText: 'Descripción',
                   border: OutlineInputBorder()
