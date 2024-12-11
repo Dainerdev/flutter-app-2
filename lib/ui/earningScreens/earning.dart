@@ -3,19 +3,6 @@ import 'package:flutter_app_und4/ui/earningScreens/earning.add.dart';
 import 'package:flutter_app_und4/ui/earningScreens/earning.search.dart';
 import 'package:flutter_app_und4/ui/homeScreens/home.dart';
 
-class Earning {
-  final int id;
-  final String name;
-  final double amount;
-  final String description;
-
-  Earning({
-    required this.id,
-    required this.name,
-    required this.amount,
-    required this.description
-  });
-}
 
 class EarningScreen extends StatelessWidget {
   const EarningScreen({super.key});
