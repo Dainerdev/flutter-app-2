@@ -1,7 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app_und4/models/expense.model.dart';
 import 'package:flutter_app_und4/ui/expenseScreens/expense.dart';
 import 'package:flutter_app_und4/ui/login.dart';
+import 'package:http/http.dart' as http;
 
 class ExpenseListScreen extends StatefulWidget {
   const ExpenseListScreen({super.key});
@@ -34,6 +39,110 @@ class _SearchExpenseScreenState extends State<ExpenseListScreen> {
     setState(() {
       userId = id;
     });
+  }
+
+  // Metodo para obtener los gastos
+  Future<void> _getExpenses() async {
+
+    final user = userId!;
+
+    final apiUrl = Uri.parse('http://10.0.2.2:3312/api/expenses/list/$user');
+
+    try {
+
+      final response = await http.get(apiUrl);
+
+      if (response.statusCode == 200) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          barrierColor: Color.fromARGB(180, 0, 0, 0), 
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(
+                'Notifiación!',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: [
+                    Text(
+                      'Se encontró almenos un gasto guardado.',
+                      style: TextStyle(
+                        fontSize: 16
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: (){
+                    Navigator.of(context).pop();
+                  }, 
+                  child: Text(
+                    'Entiendo',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold
+                    ),
+                  )
+                ),
+              ],
+            );
+          }
+        );        
+
+        // Decodificar la respuesta en formato JSON
+        List<dynamic> jsonData = json.decode(response.body);
+
+        // Convertir la lista de JSON a una lista de objetos Earning
+        setState(() {
+          expenses = jsonData.map((data) => Expense.fromJson(data)).toList();
+        });
+
+      } else {        
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('No se encontraron ingresos con ese nombre.'))
+        );
+      }
+
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e'))
+      );       
+    }
+  }
+
+  // Metodo para obtener el total de ingresos
+  Future<void> _getTotalAmount() async {
+
+    final user = userId!;
+
+    final apiUrl = Uri.parse('http://10.0.2.2:3312/api/expenses/total/$user');
+
+    try {
+      final response = await http.get(apiUrl);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+
+        final totalExpenses = (data['total_expenses'] as num).toDouble();
+
+        setState(() {
+          totalAmount = totalExpenses;
+        });
+
+      } else {
+        throw Exception('Failed to load total amount data.');
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );      
+    }
   }
 
   @override
@@ -98,6 +207,8 @@ class _SearchExpenseScreenState extends State<ExpenseListScreen> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
+                        _getExpenses();
+                        _getTotalAmount();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 141, 74, 180),
@@ -144,8 +255,7 @@ class _SearchExpenseScreenState extends State<ExpenseListScreen> {
                   const SizedBox(width: 10),
 
                   Text(
-                    '220,00',
-                    // '\$${totalAmount.toStringAsFixed(2)}',
+                    '\$${totalAmount.toStringAsFixed(2)}',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 22
