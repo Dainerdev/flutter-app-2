@@ -10,6 +10,9 @@ class SearchExpenseScreen extends StatefulWidget {
 }
 
 class _SearchEarningScreenState extends State<SearchExpenseScreen> {
+  
+  // identificadores
+  final nameField = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +36,7 @@ class _SearchEarningScreenState extends State<SearchExpenseScreen> {
               const SizedBox(height: 60),
 
               TextField(
+                controller: nameField,
                 decoration: const InputDecoration(
                   labelText: 'Nombre',
                   border: OutlineInputBorder()
