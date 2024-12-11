@@ -16,6 +16,11 @@ class _AddEarningScreenState extends State<AddExpenseScreen> {
   final amountField = TextEditingController();
   final descriptionField = TextEditingController();
 
+  //variables
+  String name = '';
+  String amount = '';
+  String description = '';
+
 
 
 
@@ -72,6 +77,54 @@ class _AddEarningScreenState extends State<AddExpenseScreen> {
 
               ElevatedButton(
                 onPressed: (){
+
+                  //Guardar los datos en las variables
+                  name = nameField.text;
+                  amount = amountField.text;
+                  description = descriptionField.text;
+
+                  if ( name == '' || amount == '' || description == '') {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      barrierColor: Color.fromARGB(180, 0, 0, 0),
+                      builder: (BuildContext context){
+                        return AlertDialog(
+                          title: Text(
+                            'Notificación!',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold
+                            ),
+                          ),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: [
+                                Text('Todos los campos son requeridos. Por favor, indique los datos del gasto.',
+                                  style: TextStyle(
+                                    fontSize: 16
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: (){
+                                Navigator.of(context).pop();
+                              }, 
+                              child: Text('Entiendo',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold
+                                ),
+                              )
+                            ),
+                          ],
+                        );
+                      }
+                    );
+
+                  }
 
                 }, 
                 style: ElevatedButton.styleFrom(
