@@ -14,6 +14,10 @@ class EditExpenseScreen extends StatefulWidget {
 }
 
 class _EditExpenseScreenState extends State<EditExpenseScreen> {
+
+  late TextEditingController nameField;
+  late TextEditingController amountField;
+  late TextEditingController descriptionField;
   
   @override
   Widget build(BuildContext context) {
@@ -36,6 +40,7 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
               const SizedBox(height: 50),
 
               TextField(
+                controller: nameField,
                 decoration: const InputDecoration(
                   labelText: 'Nombre',
                   border: OutlineInputBorder()
@@ -45,6 +50,7 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
               const SizedBox(height: 20),
 
               TextField(
+                controller: amountField,
                 decoration: const InputDecoration(
                   labelText: 'Monto',
                   border: OutlineInputBorder()
@@ -54,6 +60,7 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
               const SizedBox(height: 20),
 
               TextField(
+                controller: descriptionField,
                 decoration: const InputDecoration(
                   labelText: 'Descripción',
                   border: OutlineInputBorder()
