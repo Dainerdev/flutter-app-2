@@ -134,6 +134,36 @@ class HomeScreen extends StatelessWidget {
                   )
                 ),
 
+                const SizedBox(height: 20),
+
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => UserEditDataScreen())                    
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 141, 74, 180),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 90,
+                      vertical: 15
+                    ),
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)
+                    ),
+                  ), 
+                  label: const Text(
+                    'Gastos',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ),
+
                 const SizedBox(height: 60),
                 
                 ElevatedButton(
