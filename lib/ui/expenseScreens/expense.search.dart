@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_und4/models/expense.model.dart';
 import 'package:flutter_app_und4/ui/expenseScreens/expense.dart';
+import 'package:flutter_app_und4/ui/expenseScreens/expense.edit.dart';
 import 'package:flutter_app_und4/ui/login.dart';
 import 'package:http/http.dart' as http;
 
@@ -286,6 +287,22 @@ class _SearchExpenseScreenState extends State<SearchExpenseScreen> {
                         ),
                       ),
                       isThreeLine: true,
+                      trailing: IconButton(
+                        onPressed: (){
+                          Navigator.push(context, 
+                            MaterialPageRoute(builder: (context) => EditExpenseScreen(expense: expense))
+                          );
+                        },
+                        style: IconButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 141, 74, 180),
+                          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15)                          
+                        ), 
+                        icon: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                          size: 24,
+                        )
+                      ),
                     ),
                   );
                 },
