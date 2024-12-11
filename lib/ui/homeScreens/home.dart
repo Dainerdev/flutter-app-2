@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_und4/ui/expenseScreens/expenses.dart';
 import 'package:flutter_app_und4/ui/login.dart';
 import 'home.userData.dart';
 import 'home.modifyData.dart';
@@ -140,7 +141,7 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context, 
-                      MaterialPageRoute(builder: (context) => UserEditDataScreen())                    
+                      MaterialPageRoute(builder: (context) => ExpensesScreen())                    
                     );
                   },
                   style: ElevatedButton.styleFrom(
