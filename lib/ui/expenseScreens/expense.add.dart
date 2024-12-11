@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_und4/ui/expenseScreens/expense.dart';
+import 'package:flutter_app_und4/ui/login.dart';
 
 class AddExpenseScreen extends StatefulWidget {
   const AddExpenseScreen({super.key});
@@ -21,7 +22,25 @@ class _AddEarningScreenState extends State<AddExpenseScreen> {
   String amount = '';
   String description = '';
 
+  String? userId;
+  Map<String, dynamic>? userData;
 
+  @override
+  void initState() {
+    super.initState();
+    _loadUserId();
+  }  
+
+  // Método para cargar el userId desde SharedPreferences
+  Future<void> _loadUserId() async {
+    // Obtiene el ID del usuario desde SharedPreferences
+    final id = await getUserId();
+
+    // Actualiza el estado con el ID
+    setState(() {
+      userId = id;
+    });
+  }
 
 
 
