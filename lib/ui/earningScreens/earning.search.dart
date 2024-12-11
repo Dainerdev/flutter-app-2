@@ -147,109 +147,117 @@ class _SearchEarningScreenState extends State<SearchEarningScreen> {
                 ),
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
 
-              ElevatedButton.icon(
-                onPressed: (){
-
-                  if (nameField.text == '') {
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      barrierColor: Color.fromARGB(180, 0, 0, 0),
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Notificación!',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold
-                            ),
-                          ),
-                          content: SingleChildScrollView(
-                            child: ListBody(
-                              children: [
-                                Text(
-                                  'Indique el nombre del ingreso a buscar.',
-                                  style: TextStyle(
-                                    fontSize: 16
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: (){
-                                Navigator.of(context).pop();
-                              }, 
-                              child: Text(
-                                'Entiendo',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold
-                                ),
-                              )
-                            )
-                          ],
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: (){
+                        Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => EarningScreen())
                         );
-                      }
-                    );
-
-                  } else {
-                    _searchEarningsByName(nameField.text);
-                  }
-
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 141, 74, 180),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40,
-                      vertical: 15
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 245, 230, 253),
+                        padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)
+                        )
+                      ),
+                      child: const Text(
+                        'Regresar',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Color.fromARGB(255, 141, 74, 180),
+                          fontWeight: FontWeight.bold
+                        ),
+                      )
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)
-                    ),
-                ),
-                label: Text(
-                  'Buscar',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold
                   ),
-                ),
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                  size: 24,
-                ),
+
+                  const SizedBox(width: 10),
+
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: (){
+
+                        if (nameField.text == '') {
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            barrierColor: Color.fromARGB(180, 0, 0, 0),
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Notificación!',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                                content: SingleChildScrollView(
+                                  child: ListBody(
+                                    children: [
+                                      Text(
+                                        'Indique el nombre del ingreso a buscar.',
+                                        style: TextStyle(
+                                          fontSize: 16
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: (){
+                                      Navigator.of(context).pop();
+                                    }, 
+                                    child: Text(
+                                      'Entiendo',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    )
+                                  )
+                                ],
+                              );
+                            }
+                          );
+
+                        } else {
+                          _searchEarningsByName(nameField.text);
+                        }
+
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 141, 74, 180),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 40,
+                            vertical: 15
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)
+                          ),
+                      ),
+                      label: Text(
+                        'Buscar',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      icon: Icon(
+                        Icons.search,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                    ),                  
+                  ),
+                ],
               ),
 
-              const SizedBox(height: 20),
-
-              ElevatedButton(
-                onPressed: (){
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => EarningScreen())
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 245, 230, 253),
-                  padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)
-                  )
-                ),
-                child: const Text(
-                  'Regresar',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Color.fromARGB(255, 141, 74, 180),
-                    fontWeight: FontWeight.bold
-                  ),
-                )
-              ),
-
-              const SizedBox(height: 60),
+              const SizedBox(height: 50),
 
               Text('Información del Ingreso:',
                 style: TextStyle(
@@ -275,7 +283,7 @@ class _SearchEarningScreenState extends State<SearchEarningScreen> {
                           fontWeight: FontWeight.bold
                         ),
                       ),
-                      subtitle: Text('Descripción: ${earning.description}\nNombre: ${earning.name}',
+                      subtitle: Text('Nombre: ${earning.name}\nDescripción: ${earning.description}',
                         style: TextStyle(
                           fontSize: 18
                         ),
