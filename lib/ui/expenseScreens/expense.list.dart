@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_und4/models/expense.model.dart';
 import 'package:flutter_app_und4/ui/expenseScreens/expense.dart';
+import 'package:flutter_app_und4/ui/login.dart';
 
 class ExpenseListScreen extends StatefulWidget {
   const ExpenseListScreen({super.key});
@@ -9,6 +11,30 @@ class ExpenseListScreen extends StatefulWidget {
 }
 
 class _SearchExpenseScreenState extends State<ExpenseListScreen> {
+
+    // Lista de ingresos
+  List<Expense> expenses = [];
+
+  String? userId;
+  Map<String, dynamic>? userData;
+  double totalAmount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserId();
+  } 
+
+  // Método para cargar el userId desde SharedPreferences
+  Future<void> _loadUserId() async {
+    // Obtiene el ID del usuario desde SharedPreferences
+    final id = await getUserId();
+
+    // Actualiza el estado con el ID
+    setState(() {
+      userId = id;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,8 +154,33 @@ class _SearchExpenseScreenState extends State<ExpenseListScreen> {
                 ],
               ),
 
-
-
+              ListView.builder(
+                shrinkWrap: true,                
+                itemCount: expenses.length,
+                itemBuilder: (context, index) {
+                  final expense = expenses[index];
+                  return Card(
+                    color: Color.fromARGB(255, 245, 230, 253),
+                    elevation: 6,
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    child: ListTile(
+                      title: Text('Monto: \$${expense.amount.toStringAsFixed(2)}',
+                      style: TextStyle(
+                          fontSize: 22,
+                          color: Color.fromARGB(255, 141, 74, 180),
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      subtitle: Text('Nombre: ${expense.name}\nDescripción: ${expense.description}',
+                        style: TextStyle(
+                          fontSize: 18
+                        ),
+                      ),
+                      isThreeLine: true,
+                    ),
+                  );
+                }
+              )
             ],
           ),
         ),
