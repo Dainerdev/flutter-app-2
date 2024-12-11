@@ -188,6 +188,30 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
 
               ElevatedButton(
                 onPressed: (){
+                  
+                }, 
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 165, 31, 31),
+                  padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                  minimumSize: const Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)
+                  )
+                ),
+                child: const Text(
+                  'Eliminar',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold
+                  ),
+                )
+              ),
+
+              const SizedBox(height: 40),
+
+              ElevatedButton(
+                onPressed: (){
                   Navigator.pop(context);
                 }, 
                 style: ElevatedButton.styleFrom(
