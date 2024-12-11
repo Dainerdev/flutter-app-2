@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_und4/ui/login.dart';
 import 'home.userData.dart';
 import 'home.modifyData.dart';
+import '../earningScreens/earning.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -32,7 +33,9 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 90),
+
+            const SizedBox(height: 60),
+
             Column(
               children: [
                 ElevatedButton.icon(
@@ -66,7 +69,9 @@ class HomeScreen extends StatelessWidget {
                     size: 24,                    
                   ),
                 ),
+
                 const SizedBox(height: 20),
+
                 ElevatedButton.icon(
                   onPressed: () {
                     Navigator.push(
@@ -99,7 +104,38 @@ class HomeScreen extends StatelessWidget {
                     size: 24,                    
                   ),
                 ),
+
+                const SizedBox(height: 20),
+
+                ElevatedButton.icon(
+                  onPressed: (){
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => EarningScreen())                    
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 141, 74, 180),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 100,
+                      vertical: 15
+                    ),
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)
+                    ),
+                  ), 
+                  label: Text('Ingresos',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                ),
+
                 const SizedBox(height: 60),
+                
                 ElevatedButton(
                   onPressed: () {           
                     showDialog(
