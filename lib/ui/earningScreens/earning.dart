@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_und4/ui/earningScreens/earning.add.dart';
+import 'package:flutter_app_und4/ui/earningScreens/earning.list.dart';
 import 'package:flutter_app_und4/ui/earningScreens/earning.search.dart';
 import 'package:flutter_app_und4/ui/homeScreens/home.dart';
 
@@ -85,7 +86,11 @@ class EarningScreen extends StatelessWidget {
                 ),                
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.push(context, 
+                      MaterialPageRoute(builder: (context) => EarningListScreen())
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 141, 74, 180),
                     padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
