@@ -22,6 +22,7 @@ class _EarningListScreenState extends State<EarningListScreen> {
   List<Earning> earnings = [];
   String? userId;
   Map<String, dynamic>? userData;
+  double totalAmount = 0;
 
   @override
   void initState() {
@@ -115,6 +116,35 @@ class _EarningListScreenState extends State<EarningListScreen> {
     }
   }
 
+  // Metodo para obtener el total de ingresos
+  Future<void> _getTotalAmount() async {
+
+    final user = userId!;
+
+    final apiUrl = Uri.parse('http://10.0.2.2:3312/api/earnings/total/$user');
+
+    try {
+      final response = await http.get(apiUrl);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+
+        final totalEarnings = (data['total_earnings'] as num).toDouble();
+
+        setState(() {
+          totalAmount = totalEarnings;
+        });
+
+      } else {
+        throw Exception('Failed to load total amount data.');
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );      
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,7 +187,6 @@ class _EarningListScreenState extends State<EarningListScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromARGB(255, 245, 230, 253),
                         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                        minimumSize: const Size(double.infinity, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)
                         )
@@ -179,11 +208,11 @@ class _EarningListScreenState extends State<EarningListScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         _getEarnings();
+                        _getTotalAmount();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 141, 74, 180),
                         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                        minimumSize: const Size(double.infinity, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)
                         )
@@ -226,7 +255,7 @@ class _EarningListScreenState extends State<EarningListScreen> {
                   const SizedBox(width: 10),
 
                   Text(
-                    '245454,00',
+                    '\$${totalAmount.toStringAsFixed(2)}',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 22
