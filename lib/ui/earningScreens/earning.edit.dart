@@ -12,6 +12,10 @@ class EditEarningScreen extends StatefulWidget {
 
 class _EditEarningScreenState extends State<EditEarningScreen> {
 
+  late TextEditingController nameField;
+  late TextEditingController amountField;
+  late TextEditingController descriptionField;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +38,7 @@ class _EditEarningScreenState extends State<EditEarningScreen> {
               const SizedBox(height: 50),
 
               TextField(
+                controller: nameField,
                 decoration: const InputDecoration(
                   labelText: 'Nombre',
                   border: OutlineInputBorder()
@@ -43,6 +48,7 @@ class _EditEarningScreenState extends State<EditEarningScreen> {
               const SizedBox(height: 20),
 
               TextField(
+                controller: amountField,
                 decoration: const InputDecoration(
                   labelText: 'Monto',
                   border: OutlineInputBorder()
@@ -52,6 +58,7 @@ class _EditEarningScreenState extends State<EditEarningScreen> {
               const SizedBox(height: 20),
 
               TextField(
+                controller: descriptionField,
                 decoration: const InputDecoration(
                   labelText: 'Descripción',
                   border: OutlineInputBorder()
