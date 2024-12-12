@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_und4/models/earning.model.dart';
 import 'package:flutter_app_und4/ui/earningScreens/earning.dart';
+import 'package:flutter_app_und4/ui/earningScreens/earning.edit.dart';
 import 'package:flutter_app_und4/ui/login.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -289,6 +290,22 @@ class _SearchEarningScreenState extends State<SearchEarningScreen> {
                         ),
                       ),
                       isThreeLine: true,
+                      trailing: IconButton(
+                        onPressed: (){
+                          Navigator.push(context, 
+                            MaterialPageRoute(builder: (context) => EditEarningScreen(earning: earning))
+                          );
+                        },
+                        style: IconButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 141, 74, 180),
+                          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15)                          
+                        ), 
+                        icon: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                          size: 24,
+                        )
+                      ),
                     ),
                   );
                 },
