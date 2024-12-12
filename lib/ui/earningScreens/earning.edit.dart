@@ -111,6 +111,60 @@ class _EditEarningScreenState extends State<EditEarningScreen> {
     return response;
   }
 
+  // Metodo para eliminar ingresos
+  Future<void> _deleteEarnings() async {
+    final response = await _removeEarnings(widget.earning.id.toString());
+    if (response.statusCode == 200) {
+      Navigator.pop(context); // Regresar a la pantalla anterior
+      
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Notifiación!'),
+            content: const Text('Ingreso eliminado con éxito.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Entendido'),
+              ),
+            ],
+          );
+        }
+      );
+
+    } else {
+      
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Notifiación!'),
+            content: const Text('Error al eliminar el ingreso.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Entendido'),
+              ),
+            ],
+          );
+        }
+      );
+    }
+  }
+
+  // Comunicacion con la API para eliminar el gasto
+  Future<http.Response> _removeEarnings(String id) async {
+    final apiUrl = Uri.parse('http://10.0.2.2:3312/api/earnings/$id');
+    return await http.delete(apiUrl);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -228,7 +282,7 @@ class _EditEarningScreenState extends State<EditEarningScreen> {
                             onPressed: (){
                               Navigator.of(context).pop();
                               // metodo eliminar
-
+                              _deleteEarnings();
                             }, 
                             child: const Text(
                               'Eliminar',
