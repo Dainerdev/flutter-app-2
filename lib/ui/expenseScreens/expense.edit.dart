@@ -97,6 +97,60 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
     }
   }
 
+  // Metodo para eliminar gasto
+  Future<void> _deleteExpense() async {
+    final response = await _removeExpense(widget.expense.id.toString());
+    if (response.statusCode == 200) {
+      Navigator.pop(context); // Regresar a la pantalla anterior
+      
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Notifiación!'),
+            content: const Text('Gasto eliminado con éxito.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Entendido'),
+              ),
+            ],
+          );
+        }
+      );
+
+    } else {
+      
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Notifiación!'),
+            content: const Text('Error al eliminar el gasto.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Entendido'),
+              ),
+            ],
+          );
+        }
+      );
+    }
+  }
+
+  // Comunicacion con la API para eliminar el gasto
+  Future<http.Response> _removeExpense(String id) async {
+    final apiUrl = Uri.parse('http://10.0.2.2:3312/api/expenses/$id');
+    return await http.delete(apiUrl);
+  }
+
   // Enviar los datos nuevos a la API
   Future<http.Response> _updateExpense(Expense expense) async {
     final apiUrl = Uri.parse('http://10.0.2.2:3312/api/expenses/edit/${expense.id}');
@@ -115,11 +169,12 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 100.0),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
                 'Modificar Gasto',
@@ -188,7 +243,60 @@ class _EditExpenseScreenState extends State<EditExpenseScreen> {
 
               ElevatedButton(
                 onPressed: (){
-                  
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,                      
+                    barrierColor: Color.fromARGB(180, 0, 0, 0), 
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Eliminar gasto',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: [
+                              Text(
+                                '¿Deseas eliminar el gasto?',
+                                style: TextStyle(
+                                  fontSize: 16
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: (){
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text(
+                              'Cancelar',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold
+                              ),
+                            )
+                          ),
+                          TextButton(
+                            onPressed: (){
+                              Navigator.of(context).pop();
+                              // metodo eliminar
+                              _deleteExpense();
+                            }, 
+                            child: const Text(
+                              'Eliminar',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold
+                              ),
+                            )
+                          )
+                        ],
+                      );
+                    }
+                  );
                 }, 
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 165, 31, 31),
